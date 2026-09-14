@@ -1,0 +1,7 @@
+"use client";
+
+import { motion, useMotionValue, useSpring } from "framer-motion";
+import Link from "next/link";
+import { useRef } from "react";
+interface MagneticButtonProps { children: React.ReactNode; href: string; variant?: "primary" | "secondary"; external?: boolean; }
+export function MagneticButton({ children, href, variant = "primary", external = false }: MagneticButtonProps) { const ref = useRef<HTMLAnchorElement>(null); const x = useMotionValue(0); const y = useMotionValue(0); const springX = useSpring(x, { stiffness: 300, damping: 20, mass: 0.4 }); const springY = useSpring(y, { stiffness: 300, damping: 20, mass: 0.4 }); const handleMove = (event: React.MouseEvent<HTMLAnchorElement>) => { if (window.matchMedia("(pointer: coarse)").matches) return; const rect = event.currentTarget.getBoundingClientRect(); x.set((event.clientX - (rect.left + rect.width / 2)) * 0.12); y.set((event.clientY - (rect.top + rect.height / 2)) * 0.12); }; const reset = () => { x.set(0); y.set(0); }; const className = variant === "primary" ? "btn-primary" : "btn-secondary"; if (external) return <motion.a ref={ref} href={href} target="_blank" rel="noreferrer" style={{ x: springX, y: springY }} className={className} onMouseMove={handleMove} onMouseLeave={reset}><span className="relative z-10">{children}</span></motion.a>; return <motion.div style={{ x: springX, y: springY }}><Link ref={ref} href={href} className={className} onMouseMove={handleMove} onMouseLeave={reset}><span className="relative z-10">{children}</span></Link></motion.div>; }
