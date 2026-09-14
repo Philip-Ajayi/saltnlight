@@ -1,0 +1,217 @@
+@import "tailwindcss";
+
+@theme {
+  --color-obsidian: #08030f;
+  --color-cosmic-plum: #100826;
+  --color-miv-indigo: #2d2b7f;
+  --color-electric-violet: #a855f7;
+  --color-sunset-pink: #ec4899;
+  --color-celestial-gold: #f59e0b;
+  --color-pearl: #f8fafc;
+  --color-muted-silver: #94a3b8;
+
+  --font-display: "Syne", sans-serif;
+  --font-body: "Plus Jakarta Sans", sans-serif;
+  --font-meta: "Outfit", sans-serif;
+}
+
+:root {
+  --obsidian: #08030f;
+  --cosmic-plum: #100826;
+  --indigo: #2d2b7f;
+  --violet: #a855f7;
+  --pink: #ec4899;
+  --gold: #f59e0b;
+  --pearl: #f8fafc;
+  --silver: #94a3b8;
+
+  --border-subtle: rgba(255, 255, 255, 0.1);
+  --surface: rgba(255, 255, 255, 0.035);
+
+  --container: 1380px;
+}
+
+html {
+  background: var(--obsidian);
+  color-scheme: dark;
+  scroll-behavior: auto;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+  background:
+    radial-gradient(
+      circle at 15% 5%,
+      rgba(45, 43, 127, 0.18),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 85% 35%,
+      rgba(168, 85, 247, 0.08),
+      transparent 25%
+    ),
+    var(--obsidian);
+  color: var(--pearl);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(168, 85, 247, 0.5);
+  color: white;
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+a {
+  outline: none;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+img,
+video {
+  max-width: 100%;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-meta {
+  font-family: var(--font-meta);
+}
+
+.page-container {
+  width: min(100% - 40px, var(--container));
+  margin-inline: auto;
+}
+
+@media (max-width: 767px) {
+  .page-container {
+    width: min(100% - 32px, var(--container));
+  }
+}
+
+.section-space {
+  padding-block: clamp(80px, 12vw, 180px);
+}
+
+.display-heading {
+  font-family: var(--font-display);
+  font-size: clamp(42px, 8vw, 128px);
+  font-weight: 800;
+  letter-spacing: -0.055em;
+  line-height: 0.94;
+}
+
+.section-heading {
+  font-family: var(--font-display);
+  font-size: clamp(34px, 5vw, 72px);
+  font-weight: 800;
+  letter-spacing: -0.055em;
+  line-height: 0.96;
+}
+
+.body-copy {
+  font-size: clamp(15px, 1.2vw, 18px);
+  line-height: 1.65;
+  color: rgba(248, 250, 252, 0.66);
+}
+
+.meta {
+  font-family: var(--font-meta);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.hairline {
+  border-color: var(--border-subtle);
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+}
+
+.noise {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+}
+
+.atmosphere {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 999px;
+  filter: blur(100px);
+  opacity: 0.2;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.image-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-wrap img {
+  transition:
+    transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.8s ease;
+}
+
+.image-wrap:hover img {
+  transform: scale(1.035);
+}
+
+.cinematic-line {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
