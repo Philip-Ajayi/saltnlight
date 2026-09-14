@@ -16,9 +16,9 @@
   --color-text-secondary: #a1a1aa;
   --color-text-tertiary: #71717a;
 
-  --font-display: "Syne", sans-serif;
-  --font-editorial: "Instrument Serif", serif;
-  --font-interface: "Plus Jakarta Sans", sans-serif;
+  --font-display: var(--font-syne), sans-serif;
+  --font-editorial: var(--font-instrument-serif), serif;
+  --font-interface: var(--font-jakarta), sans-serif;
 }
 
 :root {
