@@ -1,0 +1,2 @@
+interface SectionHeadingProps { eyebrow: string; number?: string; title: string; }
+export function SectionHeading({ eyebrow, number, title }: SectionHeadingProps) { return <div className="max-w-3xl"><div className="flex items-center gap-4">{number && <span className="font-display text-xs font-bold text-[#f5d061]">{number}</span>}<span className="eyebrow text-zinc-600">{eyebrow}</span><span className="h-px w-10 bg-white/10" /></div><h2 className="mt-7 font-display text-[clamp(2.8rem,5.5vw,5.75rem)] font-extrabold leading-[.87] tracking-[-.06em]">{title}</h2></div>; }
