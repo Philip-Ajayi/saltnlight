@@ -1,0 +1,7 @@
+"use client";
+
+import { useState } from "react";
+import type { ArchiveImage } from "@/lib/constants";
+import { GalleryViewer } from "./gallery-viewer";
+interface ArchiveWallProps { images: ArchiveImage[]; }
+export function ArchiveWall({ images }: ArchiveWallProps) { const [selected, setSelected] = useState<number | null>(null); return <><div className="mt-16 columns-1 gap-4 sm:columns-2 lg:columns-3">{images.map((image, index) => <button key={image.id} type="button" onClick={() => setSelected(index)} className="group relative mb-4 block w-full break-inside-avoid overflow-hidden bg-[#0b0610] text-left"><div className="aspect-[var(--aspect)] bg-cover bg-center grayscale transition-all duration-1000 group-hover:scale-[1.03] group-hover:grayscale-0" style={{ backgroundImage: `url("${image.src}")`, "--aspect": image.aspect } as React.CSSProperties} /><div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-70 transition-opacity group-hover:opacity-100" /><div className="absolute bottom-0 left-0 right-0 flex items-end justify-between p-5 opacity-0 transition-opacity duration-500 group-hover:opacity-100"><span className="text-[10px] font-bold uppercase tracking-[.15em] text-white">Archive / {image.year}</span><span className="text-white">↗</span></div></button>)}</div><GalleryViewer images={images} selected={selected} onClose={() => setSelected(null)} onChange={setSelected} /></>; }
