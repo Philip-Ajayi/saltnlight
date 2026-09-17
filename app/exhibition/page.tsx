@@ -39,7 +39,7 @@ export default function ExhibitionPage() {
         <div className="section-shell relative z-10">
           <span className="eyebrow text-zinc-500">Marketplace & Kingdom Commerce</span>
           <h1 className="mt-6 max-w-5xl font-display text-[clamp(3.5rem,8vw,7.5rem)] font-extrabold leading-[.85] tracking-[-.06em]">
-            THE EXHIBITION
+            THE EXHIBITIONS
             <br />
             <span className="text-gradient-gold">HUB '26.</span>
           </h1>
