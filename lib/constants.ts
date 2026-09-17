@@ -32,13 +32,13 @@ export const programTracks: ProgramTrack[] = [
 ];
 
 const ministerData: Array<[string,string,string,string,string,string]> = [
-  ["samson-ajetomobi","Rev. Samson Ajetomobi","Founder / Oversight","Men of Issachar Vision","/images/rev-samson-ajetomobi.jpg","Founder and oversight voice of the Men of Issachar Vision, carrying a mandate centred on understanding the times and equipping people to respond with wisdom, conviction and influence."],
-  ["ope-rowland","Pastor Ope Rowland","Resident Pastor","MIV Word House","/images/pastor-ope-rowland.jpg","Resident pastor and teacher committed to building people through sound teaching, spiritual formation and practical expressions of faith."],
-  ["apostle-awoyele","Apostle Awoyele","Minister","Salt & Light '26","/images/apostle-awoyele.jpg","A ministry voice contributing to the convocation's emphasis on spiritual maturity, discernment and kingdom influence."],
-  ["apostle-toluwalogo","Apostle Toluwalogo","Minister","Salt & Light '26","/images/apostle-toluwalogo.jpg","Apostolic voice bringing perspective on purpose, leadership and the responsibility of influence."],
-  ["dr-kotila","Dr. Kotila","Minister","Salt & Light '26","/images/dr-kotila.jpg","A voice contributing insight into leadership, development and the practical dimensions of influence."],
-  ["mr-sobayo","Mr. Sobayo","Minister","Salt & Light '26","/images/mr-sobayo.jpg","A marketplace-focused voice exploring excellence, responsibility and purposeful contribution."],
-  ["dr-karen","Dr. Karen","Minister","Salt & Light '26","/images/dr-karen.jpg","A voice bringing perspective to the formation, development and deployment of people who influence culture."],
+  ["samson-ajetomobi","Rev. Samson Ajetomobi","Founder / Oversight","Men of Issachar Vision","/images/rev-samson-ajetomobi.jpeg","Founder and oversight voice of the Men of Issachar Vision, carrying a mandate centred on understanding the times and equipping people to respond with wisdom, conviction and influence."],
+  ["ope-rowland","Pastor Ope Rowland","Resident Pastor","MIV Word House","/images/pastor-ope-rowland.jpeg","Resident pastor and teacher committed to building people through sound teaching, spiritual formation and practical expressions of faith."],
+  ["apostle-awoyele","Apostle Awoyele","Minister","Salt & Light '26","/images/rev-awoyele.jpeg","A ministry voice contributing to the convocation's emphasis on spiritual maturity, discernment and kingdom influence."],
+  ["apostle-toluwalogo","Apostle Toluwalogo","Minister","Salt & Light '26","/images/apostle-toluwalogo.jpeg","Apostolic voice bringing perspective on purpose, leadership and the responsibility of influence."],
+  ["dr-kotila","Dr. Kotila","Minister","Salt & Light '26","/images/dr-kotila.jpeg","A voice contributing insight into leadership, development and the practical dimensions of influence."],
+  ["mr-sobayo","Mr. Sobayo","Minister","Salt & Light '26","/images/mr-sobayo.jpeg","A marketplace-focused voice exploring excellence, responsibility and purposeful contribution."],
+  ["dr-karen","Dr. Karen","Minister","Salt & Light '26","/images/dolapo.jpeg","A voice bringing perspective to the formation, development and deployment of people who influence culture."],
 ];
 export const ministers: Minister[] = ministerData.map(([id,name,role,organization,image,bio]) => ({ id,name,role,organization,image,bio }));
 
@@ -46,5 +46,5 @@ export const archiveImages: ArchiveImage[] = Array.from({ length: 31 }, (_, i) =
   const year = i < 15 ? 2024 : 2025;
   const number = i < 15 ? i + 1 : i - 14;
   const aspect = ["4 / 5", "16 / 10", "3 / 4", "4 / 5", "16 / 11"][i % 5];
-  return { id: `${year}-${String(number).padStart(2, "0")}`, src: `/images/gallery-${year}/${String(number).padStart(2, "0")}.jpg`, year: year as 2024 | 2025, aspect };
+  return { id: `${year}-${String(number).padStart(2, "0")}`, src: `/images/gallery-${year}/${String(number).padStart(2, "0")}.jpeg`, year: year as 2024 | 2025, aspect };
 });
