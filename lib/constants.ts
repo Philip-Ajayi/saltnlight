@@ -1,5 +1,14 @@
 export interface Mountain { id: string; name: string; description: string; position: { left: string; top: string }; }
-export interface ProgramTrack { id: string; title: string; date: string; time: string; description: string; }
+export interface ProgramTrack {
+  id: string;
+  title: string;
+  date: string;
+  time: string;
+  // Replace single description with structured fields
+  lead?: string;
+  bullets?: string[];
+  description?: string;
+}
 export interface Minister { id: string; name: string; role: string; organization: string; image: string; bio: string; }
 export interface ArchiveImage { id: string; src: string; year: 2024 | 2025; aspect: string; }
 
@@ -23,22 +32,66 @@ export const mountainMatrix = [
   { id: "church", name: "Church Ministry", challenge: "The Church is called to equip saints for influence in every sphere." },
 ];
 
+
 export const programTracks: ProgramTrack[] = [
-  { id: "influence-night", title: "Influence Night", date: "OCT 12 — 16", time: "5:30 PM", description: "Five evenings. Five encounters. One call to influence. Gather around the word, worship and prophetic perspective." },
-  { id: "shiftings-turnings", title: "Shiftings & Turnings", date: "OCT 13 — 16", time: "6:00 AM", description: "Early-morning encounters designed to recalibrate vision, strengthen conviction and prepare you for the day." },
-  { id: "certificated-training", title: "Certificated Training", date: "OCT 13 — 16", time: "11:00 AM", description: "Focused learning sessions for people who want practical frameworks for leadership, influence and execution." },
-  { id: "school-of-ministry", title: "School of Ministry", date: "OCT 13 — 16", time: "1:30 PM", description: "A concentrated ministry environment for spiritual formation, leadership development and practical service." },
-  { id: "exhibition-hub", title: "Exhibition Hub", date: "OCT 13 — 16", time: "4:00 PM", description: "A marketplace of organisations, products, ideas and expressions building on the mountain." },
+  {
+    id: "influence-night",
+    title: "Influence Night",
+    date: "OCT 12 — 16",
+    time: "5:30 PM",
+    bullets: [
+      "**Daniel's Call**: Marketplace Missions applying salt and light in the workplace.",
+      "**Ezekiel's Call**: Word and Miracle Service for transformation and spiritual impartation."
+    ]
+  },
+  {
+    id: "shiftings-turnings",
+    title: "Shiftings & Turnings",
+    date: "OCT 13 — 16",
+    time: "6:30 AM",
+    lead: "A transformative prayer and prophetic session addressing all spheres of life.",
+    bullets: [
+      "Intense intercessions and prophetic declarations",
+      "Spiritual realignment and breaking strongholds"
+    ]
+  },
+  {
+    id: "certificated-training",
+    title: "Certificated Training",
+    date: "OCT 13 — 16",
+    time: "10:00 AM",
+    lead: "Discounted, collaborative training with recognized certifying institutions in:",
+    bullets: [
+      "Project Management & Data Analysis",
+      "Human Resource Management",
+      "Integrated Workforce AI Management"
+    ]
+  },
+  {
+    id: "school-of-ministry",
+    title: "School of Ministry",
+    date: "OCT 13 — 16",
+    time: "1:00 PM",
+    lead: "Designed for Pastors, Evangelists, and Ministry Leaders.",
+    description: "Blends theology, mentorship, and practical engagement for ministry effectiveness across campus, youth, arts, and media spheres."
+  },
+  {
+    id: "exhibition-hub",
+    title: "Exhibition Hub",
+    date: "OCT 13 — 16",
+    time: "2:30 PM",
+    description: "A marketplace of organisations, products, ideas, and expressions building on the mountain."
+  }
 ];
 
 const ministerData: Array<[string,string,string,string,string,string]> = [
-  ["samson-ajetomobi","Rev. Samson Ajetomobi","Founder / Oversight","Men of Issachar Vision","/images/rev-samson-ajetomobi.jpeg","Founder and oversight voice of the Men of Issachar Vision, carrying a mandate centred on understanding the times and equipping people to respond with wisdom, conviction and influence."],
-  ["ope-rowland","Pastor Ope Rowland","Resident Pastor","MIV Word House","/images/pastor-ope-rowland.jpeg","Resident pastor and teacher committed to building people through sound teaching, spiritual formation and practical expressions of faith."],
-  ["apostle-awoyele","Apostle Awoyele","Minister","Salt & Light '26","/images/rev-awoyele.jpeg","A ministry voice contributing to the convocation's emphasis on spiritual maturity, discernment and kingdom influence."],
-  ["apostle-toluwalogo","Apostle Toluwalogo","Minister","Salt & Light '26","/images/apostle-toluwalogo.jpeg","Apostolic voice bringing perspective on purpose, leadership and the responsibility of influence."],
-  ["dr-kotila","Dr. Kotila","Minister","Salt & Light '26","/images/dr-kotila.jpeg","A voice contributing insight into leadership, development and the practical dimensions of influence."],
-  ["mr-sobayo","Mr. Sobayo","Minister","Salt & Light '26","/images/mr-sobayo.jpeg","A marketplace-focused voice exploring excellence, responsibility and purposeful contribution."],
-  ["dr-karen","Dr. Karen","Minister","Salt & Light '26","/images/dolapo.jpeg","A voice bringing perspective to the formation, development and deployment of people who influence culture."],
+  ["samson-ajetomobi","Rev. Samson Ajetomobi","Founder / Oversight","Men of Issachar Vision","/images/rev-samson-ajetomobi.jpeg","Rev. Samson Ajetomobi is the President of The Men of Issachar Vision Incorporated (MIV), which commenced in 1989. He is a man called by God with the mandate to reach the unreached at all cost and reawaken the Church to her responsibilities. He is gripped with a great passion for souls in reaching the unreached at all cost. Since the inception of MIV ministry, his strong drive has helped several lives to discover the essence of living for God. \n\nRev. Samson Ajetomobi, an alumnus member of Haggai Institute Maui, USA is the President of Mission and Leadership Academy (MLA), Compact Leadership Training and the coordinator of the ever growing Leadership Update for strategic leaders. A member of NEMA (Nigeria Evangelical Missions Association) and DAI, he chairs, MANI Oyo State and the Pentecostal Fellowship of Nigeria (PFN), Oyo State Chapter. \n\nRev. Ajetomobi also oversees the Redemption Faith Churches and several other networks with missions and leadership thrust. He is much sought after in trainings, conferences, crusades and church revivals across the continents and because of his leadership thrust of over 34 years he is involved with the leadership of several Christian organizations and mission agencies. \n\nHe is married to Rev. Stellamaris and their marriage is blessed with four young adults."],
+  ["ope-rowland","Pastor Ope Rowland","Resident Pastor","MIV Word House","/images/pastor-ope-rowland.jpeg","Pastor Ope Rowland is a preacher of God's word, public speaker and trainer, consultant and coach, and writer in Nigeria. He believes in the ministry of every saint. Hence, he talks  and writes about believers finding, grooming and operating in their ministries. \n\nHe currently serves as the Personal Assistant to Rev. Samson Ajetomobi (the President of The Men of Issachar Vision Inc. and Chairman of the Oyo State Chapter of the Pentecostal Fellowship of Nigeria). He is also the National Youth Pastor of the Men of Issachar Vision Inc. and the Lead Pastor at MIV Word House, Samonda. Ibadan, Nigeria and he runs an itinerant preaching and teaching ministry across campuses and churches. \n\nIn years past, serving as President of ASF FUTA, President of JCCF FUTA, President of NCCF Enugu, Assistant Pastor of MIV Youth Church (now MIV Harvest House) and other platforms he's been privileged to serve had in no little measure contributed to the hewing of his leadership capacity. \n\nHis marriage to Atinuke Rowland has been a blessing and their children are signs of the wonders to come."],
+  ["apostle-toluwalogo","Apostle Toluwalogo Agboola","Minister","Salt & Light '26","/images/apostle-toluwalogo.jpeg","Apostle Toluwalogo Oluwapelumi Agboola is the Esteemed Founder of His Worship Christian Network (HWCN Global). He is a Seasoned Teacher of Gospel of Christ, talented song Composer, and a dedicated worshiper of Christ. \n\nIn the year 1990, he made a life-changing decision to commit his life to Christ. He pursued his education and obtained a degree in Chemical Engineering from the Federal University of Technology, Minna. \n\nHe is the spiritual son of the esteemed Apostle Arome Osayi, a revered mentor and spiritual father. Apostle Agboola's connection to his spiritual heritage is deeply rooted, and he honors the fatherhood of distinguished Fathers of faith, including Prophet Michael Olaosebikan Adio: A respected spiritual leader and mentor, known for his wisdom and Prophetic guidance. Apostle Agboola acknowledges the spiritual guidance and support received from various spiritual leaders, fostering his growth and ministry. With a strong foundation in spiritual guidance, Apostle Toluwalogo Agboola continues to inspire and lead others, perpetuating a legacy of faith, wisdom, and compassion. His connection to his spiritual roots is a testament to the significance of mentorship and the impact of spiritual fatherhood in shaping lives and ministries. \n\nApostle Tolu Agboola received a divine commission from God with the powerful mandate to 'Take My Worship to The Ends Of The Earth'. As a result, he now serves as the head of His Worship Christian Network (HWCN Global), which is situated at The Ark of Preservation, Behind Facebook Market, UnderG, in the city of Ogbomoso. His guiding philosophy is deeply rooted in the belief that faith in God forms a solid foundation for the building of destinies. \n\nFurthermore, Apostle Tolu Agboola found love and happiness in marriage with Mrs. Ademidoyin Agboola, and they solemnized their union in November 2019."],
+  ["apostle-awoyele","Reverend Awoyele","Minister","Salt & Light '26","/images/rev-awoyele.jpeg","Reverend Demola Awoyele is a dynamic pastor, mentor, trainer, and accomplished author. Together with his wife, Pastor Kemi, he serves as the Senior Pastor of Destiny Impact Church (DIC), Akure, Ondo State, a vibrant church with a clear mandate to empower people to fulfill their God-given destiny. He is also the President of Demola Awoyele Ministries International (DAMI), carrying a global vision to disciple the nations. \n\nHis journey, from humble beginnings to transformative leadership, is a powerful testimony of resilience, divine purpose, and impactful decisions. While studying at the Federal University of Technology, Akure (FUTA), he began his pastoral ministry, faithfully leading the Foursquare Students’ Fellowship (FSF) and later serving with the Joint Christian Campus Fellowship (JCCF). He went on to obtain a Master of Science (M.Sc.) degree from the University of Lagos. \n\nA gifted teacher of the Word, Pastor Demola ministers with accuracy, power, and deep life-transforming insight. His passion is to equip people to become all God has ordained them to be, building lasting capacity for life and destiny."],
+  ["dr-kotila","Dr. Olayinka Kotila","Minister","Salt & Light '26","/images/dr-kotila.jpeg","Dr Olayinka Kotila is a researcher in the field of pharmacokinetics and an excellent lecturer of Pharmaceutical Chemistry in the University of Ibadan. She's happily married to Reverend Gbenga Kotila and together they pastor the Centre for Reality International Church, Ibadan. Dr Olayinka Kotila is a rugged preacher of the undiluted word of God."],
+  ["mr-sobayo","Mr. Femi Sobayo","Minister","Salt & Light '26","/images/mr-sobayo.jpeg","Olumuyiwa Femi Sobayo is a distinguished finance, strategy, and business intelligence leader with over 15 years of exceptional, cross-functional experience. He has successfully steered financial governance, capital models, and long-term valuation portfolios across high-impact sectors including Banking, FMCG, Pharmaceuticals, Engineering, Agriculture, Trade Development, and top-tier NGOs."],
+  ["dr-karen","Dr. Dolapo Awoniyi","Minister","Salt & Light '26","/images/dolapo.jpeg","."],
 ];
 export const ministers: Minister[] = ministerData.map(([id,name,role,organization,image,bio]) => ({ id,name,role,organization,image,bio }));
 

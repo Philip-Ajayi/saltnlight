@@ -17,14 +17,15 @@ export interface RegistrationFormData {
     "Social Media (Instagram/X/Facebook)",
     "Friend or Family Member",
     "Church Announcement",
-    "Billboard / Event Flyer",
+    "Billboard",
     "MIV Word House Website",
     "WhatsApp Broadcast",
+    "Hand Bill",
     "Other",
   ];
   
   export const CERTIFICATED_TRAININGS = [
-    { id: "NONE", label: "None / Not Interested at this time" },
+    { id: "NONE", label: "None" },
     { id: "HSE", label: "Health, Safety & Environment (HSE)" },
     { id: "PMP", label: "Project Management Professional (PMP)" },
   ];
@@ -44,4 +45,4 @@ export interface RegistrationFormData {
   
   // Target WhatsApp workforce invitation link
   export const VOLUNTEER_WHATSAPP_GROUP_URL =
-    "https://chat.whatsapp.com/CXXXXXXXXXXXXXXX_SL26WORKFORCE";
+    "https://chat.whatsapp.com/JseeyOoMkaUAFwhxIgCJU5?mode=ac_t";
