@@ -62,8 +62,9 @@ export const programTracks: ProgramTrack[] = [
     time: "10:00 AM",
     lead: "Discounted, collaborative training with recognized certifying institutions in:",
     bullets: [
-      "Project Management & Data Analysis",
-      "Human Resource Management",
+      "Project Management (PMP)",
+      "Data Analysis",
+      "Human Resource Management (HRM)",
       "Integrated Workforce AI Management"
     ]
   },
