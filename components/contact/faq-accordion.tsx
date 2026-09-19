@@ -23,11 +23,11 @@ const faqs: FAQItem[] = [
       "Select 'Exhibition / Booth' in the contact form above, or contact our exhibition desk directly. Booths are curated for alignment with mountain spheres.",
   },
   {
-    category: "Logistics",
-    question: "Are there recommended hotel accommodations in Samonda?",
-    answer:
-      "Yes. We have partnered with verified hotels around Samonda and Bodija in Ibadan with negotiated delegate rates. Reach out via the form for our delegate accommodation guide.",
-  },
+  category: "Logistics",
+  question: "Is accommodation provided for delegates?",
+  answer:
+    "Yes, accommodation is provided by the church. Selecting the accommodation option on the registration page guarantees your reservation.",
+},
   {
     category: "Volunteering",
     question: "How can I join the Salt & Light workforce?",
