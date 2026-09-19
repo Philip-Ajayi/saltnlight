@@ -15,8 +15,8 @@ export function HeroContent() {
       <div className="overflow-hidden"><motion.h1 initial={{ y: "105%" }} animate={{ y: 0 }} transition={{ delay: 2, duration: 1.05, ease: [0.22, 1, 0.36, 1] }} className="font-display text-[clamp(4rem,8.5vw,9.25rem)] font-extrabold leading-[.82] tracking-[-.065em]">LIGHT</motion.h1></div>
       <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.35, duration: 0.8 }} className="mt-8 max-w-xl text-[10px] font-bold uppercase leading-5 tracking-[.18em] text-zinc-400 sm:text-xs">A convocation of and for<br className="sm:hidden" /> influence on world mountains</motion.p>
       <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.65, duration: 0.75 }} className="mt-8 flex flex-col items-center gap-3 sm:flex-row">
-        <MagneticButton href="#register" variant="primary">Reserve your place →</MagneticButton>
-        <MagneticButton href="#experience" variant="secondary">Explore</MagneticButton>
+        <MagneticButton href="/register" variant="primary">Reserve your place →</MagneticButton>
+        <MagneticButton href="/register" variant="secondary">Join our Workforce</MagneticButton>
       </motion.div>
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 3.1, duration: 1 }} className="mt-10"><CountdownTimer compact /></motion.div>
     </div>
