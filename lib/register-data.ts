@@ -26,8 +26,10 @@ export interface RegistrationFormData {
   
   export const CERTIFICATED_TRAININGS = [
     { id: "NONE", label: "None" },
-    { id: "HSE", label: "Health, Safety & Environment (HSE)" },
+    { id: "HSE", label: "Human Resource Management (HRM)" },
     { id: "PMP", label: "Project Management Professional (PMP)" },
+    { id: "AI", label: "Integrated Workforce AI Management" },
+    { id: "DTA", label: "Data Analysis" },
   ];
   
   export const VOLUNTEER_UNITS = [
