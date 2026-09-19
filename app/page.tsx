@@ -173,7 +173,7 @@ export default function HomePage() {
                   in the work.
                 </p>
                 <div className="mt-8">
-                  <MagneticButton href="#register" variant="secondary">
+                  <MagneticButton href="/register" variant="secondary">
                     Join the workforce →
                   </MagneticButton>
                 </div>
