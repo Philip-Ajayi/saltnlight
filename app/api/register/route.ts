@@ -72,7 +72,7 @@ export async function POST(request: Request) {
 
     // 4. Generate Unique ID (e.g., SLT2026201)
     const userCount = await usersCollection.countDocuments();
-    const uniqueId = `SLT2026${201 + userCount}`;
+    const uniqueId = `SLT2026${251 + userCount}`;
 
     // 5. Construct Document matching exact Schema
     const now = new Date();
