@@ -84,7 +84,7 @@ export function SocialBadgeGenerator({
       ctx.textBaseline = "bottom"; // Position baseline above the line
 
       const textX = width * 0.50;
-      const textY = height * 0.705; // Placed clearly above the dashed line
+      const textY = height * 0.718; // Placed clearly above the dashed line
 
       ctx.fillText(userName.toUpperCase(), textX, textY);
       ctx.restore();
