@@ -44,21 +44,25 @@ export function SocialBadgeGenerator({
 
     ctx.clearRect(0, 0, width, height);
 
-    // 1. Draw User Photo inside the Central Circle
+    // 1. Draw the Template Poster FIRST
+    ctx.drawImage(templateImage, 0, 0, width, height);
+
+    // 2. Draw User Photo ON TOP of the black circle
     if (userPhoto) {
       ctx.save();
-      
-      // Target coordinates matching the circle on the poster (X: 50%, Y: 48%, Radius: 20%)
-      const circleX = width * 0.50;
-      const circleY = height * 0.485;
-      const radius = width * 0.20;
 
+      // Coordinates for the central circle
+      const circleX = width * 0.50;      // Center horizontal
+      const circleY = height * 0.485;    // Center vertical
+      const radius = width * 0.20;       // Circle radius
+
+      // Create circular crop mask
       ctx.beginPath();
       ctx.arc(circleX, circleY, radius, 0, Math.PI * 2, true);
       ctx.closePath();
       ctx.clip();
 
-      // Cover-fit user photo inside circle
+      // Scale and position photo inside the circle (cover fit)
       const scale = Math.max((radius * 2) / userPhoto.width, (radius * 2) / userPhoto.height);
       const x = circleX - (userPhoto.width / 2) * scale;
       const y = circleY - (userPhoto.height / 2) * scale;
@@ -67,26 +71,22 @@ export function SocialBadgeGenerator({
       ctx.restore();
     }
 
-    // 2. Overlay Template Image
-    ctx.drawImage(templateImage, 0, 0, width, height);
-
-    // 3. Render Name text on "I ____________ WILL BE ATTENDING"
+    // 3. Render Name text on the line
     if (userName.trim()) {
       ctx.save();
-      ctx.font = "bold 34px sans-serif";
+      ctx.font = "bold 32px sans-serif";
       ctx.fillStyle = "#ffffff";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
 
-      // Coordinates over the name line
       const textX = width * 0.50;
-      const textY = height * 0.725;
+      const textY = height * 0.73;
 
       ctx.fillText(userName.toUpperCase(), textX, textY);
       ctx.restore();
     }
   };
-
+  
   useEffect(() => {
     renderBadge();
   }, [userName, userPhoto, templateImage]);
