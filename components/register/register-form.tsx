@@ -32,7 +32,6 @@ export function RegisterForm() {
   const [submittedData, setSubmittedData] = useState<RegistrationFormData | null>(null);
   const [showModal, setShowModal] = useState(false);
 
-  // Dynamic handlers
   const handleReferralToggle = (option: string) => {
     setFormData((prev) => {
       const exists = prev.referralSources.includes(option);
@@ -86,9 +85,16 @@ export function RegisterForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!validate()) return;
+    if (!validate()) {
+      setErrors((prev) => ({
+        ...prev,
+        submit: "Please resolve the highlighted validation errors above before proceeding.",
+      }));
+      return;
+    }
 
     setIsSubmitting(true);
+    setErrors({});
 
     try {
       const response = await fetch("/api/register", {
@@ -100,7 +106,7 @@ export function RegisterForm() {
       const result = await response.json();
 
       if (!response.ok) {
-        setErrors({ submit: result.error || "Failed to process registration" });
+        setErrors({ submit: result.error || "Registration failed. Please try again later." });
         setIsSubmitting(false);
         return;
       }
@@ -116,13 +122,33 @@ export function RegisterForm() {
       }
     } catch (err) {
       setIsSubmitting(false);
-      setErrors({ submit: "Network error. Please try again." });
+      setErrors({ submit: "Network error occurred. Check your internet connection and retry." });
     }
   };
 
   return (
     <>
       <form onSubmit={handleSubmit} className="space-y-10">
+        {/* SUBMISSION ERROR NOTIFICATION BANNER */}
+        <AnimatePresence>
+          {errors.submit && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="p-4 border border-red-500/50 bg-red-500/10 rounded-xl flex items-start gap-3 text-red-300 text-xs sm:text-sm"
+            >
+              <svg className="w-5 h-5 text-red-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <div>
+                <strong className="block font-semibold text-red-200">Registration Error</strong>
+                <span>{errors.submit}</span>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* PERSONAL DETAILS SECTION */}
         <div className="surface-obsidian p-6 sm:p-10 border border-white/[0.06]">
           <div className="flex items-center gap-3 mb-6">
@@ -254,7 +280,6 @@ export function RegisterForm() {
             <span className="eyebrow text-zinc-400">Membership & Track Selection</span>
           </div>
 
-          {/* Member Checkbox */}
           <label className="flex items-start gap-4 p-4 border border-white/10 bg-white/[0.02] cursor-pointer hover:border-[#c703e4]/40 transition-colors">
             <input
               type="checkbox"
@@ -265,12 +290,11 @@ export function RegisterForm() {
             <div>
               <span className="text-sm font-bold text-white block">I am an existing MIV Word House Member</span>
               <span className="text-xs text-zinc-500">
-                Tick if you currently attend MIV Word House or affiliated sub-ministries.
+                Tick if you currently attend MIV Word House or affiliated sub-ministries[cite: 1, 2].
               </span>
             </div>
           </label>
 
-          {/* Certificated Training Options */}
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-zinc-400 mb-3">
               Certificated Training Interest (Optional)
@@ -282,9 +306,7 @@ export function RegisterForm() {
                   <button
                     type="button"
                     key={track.id}
-                    onClick={() =>
-                      setFormData({ ...formData, certificatedTraining: track.id as any })
-                    }
+                    onClick={() => setFormData({ ...formData, certificatedTraining: track.id as any })}
                     className={`p-4 border text-left flex flex-col justify-between transition-all ${
                       isSelected
                         ? "border-[#c703e4] bg-[#460583]/20 text-white"
@@ -301,7 +323,6 @@ export function RegisterForm() {
             </div>
           </div>
 
-          {/* Accommodation Checkbox */}
           <label className="flex items-start gap-4 p-4 border border-white/10 bg-white/[0.02] cursor-pointer hover:border-[#f5d061]/40 transition-colors">
             <input
               type="checkbox"
@@ -312,7 +333,7 @@ export function RegisterForm() {
             <div>
               <span className="text-sm font-bold text-white block">I need accommodation arrangements</span>
               <span className="text-xs text-zinc-500">
-                Check this if you are traveling to Samonda, Ibadan from afar and need lodging support.
+                Check this if you are traveling to Samonda, Ibadan from afar and need lodging support[cite: 1, 2].
               </span>
             </div>
           </label>
@@ -352,7 +373,7 @@ export function RegisterForm() {
                 className="mt-6 pt-6 border-t border-white/10 space-y-4"
               >
                 <span className="block text-xs font-bold uppercase tracking-wider text-[#f5d061]">
-                  Select Volunteer Units (Ushering, Kitchen, Media, etc.) *
+                  Select Volunteer Units *
                 </span>
 
                 <div className="grid gap-3 sm:grid-cols-2">
@@ -392,11 +413,11 @@ export function RegisterForm() {
           </AnimatePresence>
         </div>
 
-        {/* CONSENT CLAUSE & PRIVACY NOTICE */}
+        {/* CONSENT CLAUSE */}
         <div className="surface-obsidian p-6 sm:p-8 border border-white/[0.06] space-y-4">
           <span className="eyebrow text-zinc-500">Privacy Notice & Terms</span>
           <p className="text-xs text-zinc-400 leading-relaxed">
-            By submitting this form, you grant Salt & Light '26 and MIV Word House permission to collect and store your contact information for event management, security, and workforce communication. We respect your privacy and will never share your details with unauthorized third parties.
+            By submitting this form, you grant Salt & Light '26 and MIV Word House permission to collect and store your contact information for event management[cite: 1, 2].
           </p>
 
           <label className="flex items-start gap-3 pt-2 cursor-pointer">
@@ -429,15 +450,12 @@ export function RegisterForm() {
                 PROCESSING REGISTRATION...
               </span>
             ) : (
-              <>
-                COMPLETE REGISTRATION →
-              </>
+              <>COMPLETE REGISTRATION →</>
             )}
           </button>
         </div>
       </form>
 
-      {/* SUCCESS MODAL */}
       <RegisterSuccessModal
         isOpen={showModal}
         data={submittedData}
