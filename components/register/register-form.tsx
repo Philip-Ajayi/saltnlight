@@ -115,11 +115,9 @@ export function RegisterForm() {
       setSubmittedData({ ...formData, uniqueId: result.uniqueId } as any);
       setShowModal(true);
 
-      if (formData.isVolunteer) {
-        setTimeout(() => {
-          window.open(VOLUNTEER_WHATSAPP_GROUP_URL, "_blank", "noopener,noreferrer");
-        }, 1800);
-      }
+      // Auto-open WhatsApp link in a new tab upon successful registration
+      window.open(VOLUNTEER_WHATSAPP_GROUP_URL, "_blank", "noopener,noreferrer");
+
     } catch (err) {
       setIsSubmitting(false);
       setErrors({ submit: "Network error occurred. Check your internet connection and retry." });
@@ -290,7 +288,7 @@ export function RegisterForm() {
             <div>
               <span className="text-sm font-bold text-white block">I am an existing MIV Word House Member</span>
               <span className="text-xs text-zinc-500">
-                Tick if you currently attend MIV Word House or affiliated sub-ministries[cite: 1, 2].
+                Tick if you currently attend MIV Word House or affiliated sub-ministries.
               </span>
             </div>
           </label>
@@ -333,7 +331,7 @@ export function RegisterForm() {
             <div>
               <span className="text-sm font-bold text-white block">I need accommodation arrangements</span>
               <span className="text-xs text-zinc-500">
-                Check this if you are traveling to Samonda, Ibadan from afar and need lodging support[cite: 1, 2].
+                Check this if you are traveling to Samonda, Ibadan from afar and need lodging support.
               </span>
             </div>
           </label>
@@ -417,7 +415,7 @@ export function RegisterForm() {
         <div className="surface-obsidian p-6 sm:p-8 border border-white/[0.06] space-y-4">
           <span className="eyebrow text-zinc-500">Privacy Notice & Terms</span>
           <p className="text-xs text-zinc-400 leading-relaxed">
-            By submitting this form, you grant Salt & Light '26 and MIV Word House permission to collect and store your contact information for event management[cite: 1, 2].
+            By submitting this form, you grant Salt & Light '26 and MIV Word House permission to collect and store your contact information for event management.
           </p>
 
           <label className="flex items-start gap-3 pt-2 cursor-pointer">
