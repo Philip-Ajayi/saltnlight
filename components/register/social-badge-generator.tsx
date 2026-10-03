@@ -17,6 +17,11 @@ export function SocialBadgeGenerator({
   const [templateImage, setTemplateImage] = useState<HTMLImageElement | null>(null);
   const [isReady, setIsReady] = useState(false);
 
+  // Photo adjustment state
+  const [zoom, setZoom] = useState<number>(1);
+  const [offsetX, setOffsetX] = useState<number>(0);
+  const [offsetY, setOffsetY] = useState<number>(0);
+
   // Load badge background template
   useEffect(() => {
     const img = new Image();
@@ -47,7 +52,7 @@ export function SocialBadgeGenerator({
     // 1. Draw Template Poster
     ctx.drawImage(templateImage, 0, 0, width, height);
 
-    // 2. Draw User Photo inside center circle
+    // 2. Draw User Photo inside center circle with adjustment offset & scale
     if (userPhoto) {
       ctx.save();
 
@@ -60,24 +65,26 @@ export function SocialBadgeGenerator({
       ctx.closePath();
       ctx.clip();
 
-      const scale = Math.max((radius * 2) / userPhoto.width, (radius * 2) / userPhoto.height);
-      const x = circleX - (userPhoto.width / 2) * scale;
-      const y = circleY - (userPhoto.height / 2) * scale;
+      const baseScale = Math.max((radius * 2) / userPhoto.width, (radius * 2) / userPhoto.height);
+      const scale = baseScale * zoom;
+      const x = circleX - (userPhoto.width / 2) * scale + offsetX;
+      const y = circleY - (userPhoto.height / 2) * scale + offsetY;
 
       ctx.drawImage(userPhoto, x, y, userPhoto.width * scale, userPhoto.height * scale);
       ctx.restore();
     }
 
-    // 3. Render Name text
+    // 3. Render Name text (Yellow, larger, positioned ABOVE the line)
     if (userName.trim()) {
       ctx.save();
-      ctx.font = "bold 32px sans-serif";
-      ctx.fillStyle = "#ffffff";
+      const fontSize = Math.round(width * 0.042); // Scaled font (~42px)
+      ctx.font = `bold ${fontSize}px sans-serif`;
+      ctx.fillStyle = "#f5d061"; // Gold / Yellow
       ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
+      ctx.textBaseline = "bottom"; // Position baseline above the line
 
       const textX = width * 0.50;
-      const textY = height * 0.73;
+      const textY = height * 0.705; // Placed clearly above the dashed line
 
       ctx.fillText(userName.toUpperCase(), textX, textY);
       ctx.restore();
@@ -86,7 +93,7 @@ export function SocialBadgeGenerator({
 
   useEffect(() => {
     renderBadge();
-  }, [userName, userPhoto, templateImage]);
+  }, [userName, userPhoto, templateImage, zoom, offsetX, offsetY]);
 
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -94,11 +101,22 @@ export function SocialBadgeGenerator({
       const reader = new FileReader();
       reader.onload = (event) => {
         const img = new Image();
-        img.onload = () => setUserPhoto(img);
+        img.onload = () => {
+          setUserPhoto(img);
+          setZoom(1);
+          setOffsetX(0);
+          setOffsetY(0);
+        };
         img.src = event.target?.result as string;
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleResetAdjustments = () => {
+    setZoom(1);
+    setOffsetX(0);
+    setOffsetY(0);
   };
 
   const downloadBadge = () => {
@@ -110,16 +128,13 @@ export function SocialBadgeGenerator({
     link.click();
   };
 
-  // Triggers immediate download + opens social platform/share picker
   const handleShareAndDownload = async (platform: "whatsapp" | "facebook" | "native") => {
-    // 1. Download image immediately
     downloadBadge();
 
     const canvas = canvasRef.current;
     const shareText = "I just registered for Salt & Light '26! Join me in Samonda, Ibadan!";
     const shareUrl = typeof window !== "undefined" ? window.location.origin : "";
 
-    // 2. Share to requested channel
     if (platform === "native" && navigator.share) {
       try {
         if (canvas) {
@@ -155,11 +170,11 @@ export function SocialBadgeGenerator({
       <div className="text-center space-y-1">
         <h3 className="font-display text-lg font-bold text-white">Customize & Share Your Social Badge</h3>
         <p className="text-xs text-zinc-400">
-          Upload your picture and edit your name to create your custom badge.
+          Upload your picture, adjust position inside the circle, and enter your name.
         </p>
       </div>
 
-      <div className="space-y-3">
+      <div className="space-y-4">
         <div>
           <label className="block text-[11px] font-bold text-zinc-400 uppercase tracking-wider mb-1">
             Upload Your Photo
@@ -171,6 +186,77 @@ export function SocialBadgeGenerator({
             className="w-full text-xs text-zinc-300 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-[#f5d061] file:text-black hover:file:bg-[#e0bc4e] cursor-pointer"
           />
         </div>
+
+        {/* Photo Adjustment Controls */}
+        {userPhoto && (
+          <div className="p-3.5 bg-white/[0.03] border border-white/10 rounded-xl space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-[#f5d061] uppercase tracking-wider">
+                Adjust Picture in Circle
+              </span>
+              <button
+                type="button"
+                onClick={handleResetAdjustments}
+                className="text-[10px] font-semibold text-zinc-400 hover:text-white underline"
+              >
+                Reset Position
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {/* Zoom Slider */}
+              <div>
+                <div className="flex justify-between text-[10px] text-zinc-400 mb-1">
+                  <span>Zoom</span>
+                  <span>{zoom.toFixed(1)}x</span>
+                </div>
+                <input
+                  type="range"
+                  min="0.8"
+                  max="2.5"
+                  step="0.05"
+                  value={zoom}
+                  onChange={(e) => setZoom(parseFloat(e.target.value))}
+                  className="w-full accent-[#f5d061] cursor-pointer"
+                />
+              </div>
+
+              {/* Horizontal Position Slider */}
+              <div>
+                <div className="flex justify-between text-[10px] text-zinc-400 mb-1">
+                  <span>Move Left / Right</span>
+                  <span>{offsetX}px</span>
+                </div>
+                <input
+                  type="range"
+                  min="-150"
+                  max="150"
+                  step="2"
+                  value={offsetX}
+                  onChange={(e) => setOffsetX(parseInt(e.target.value))}
+                  className="w-full accent-[#f5d061] cursor-pointer"
+                />
+              </div>
+
+              {/* Vertical Position Slider */}
+              <div>
+                <div className="flex justify-between text-[10px] text-zinc-400 mb-1">
+                  <span>Move Up / Down</span>
+                  <span>{offsetY}px</span>
+                </div>
+                <input
+                  type="range"
+                  min="-150"
+                  max="150"
+                  step="2"
+                  value={offsetY}
+                  onChange={(e) => setOffsetY(parseInt(e.target.value))}
+                  className="w-full accent-[#f5d061] cursor-pointer"
+                />
+              </div>
+            </div>
+          </div>
+        )}
 
         <div>
           <label className="block text-[11px] font-bold text-zinc-400 uppercase tracking-wider mb-1">
@@ -186,9 +272,9 @@ export function SocialBadgeGenerator({
         </div>
       </div>
 
-      {/* Canvas Preview */}
+      {/* Canvas Live Preview */}
       <div className="relative flex justify-center bg-black/40 p-3 rounded-xl border border-white/10 overflow-hidden">
-        <canvas ref={canvasRef} className="max-w-full h-auto rounded-lg shadow-2xl max-h-[320px]" />
+        <canvas ref={canvasRef} className="max-w-full h-auto rounded-lg shadow-2xl max-h-[340px]" />
       </div>
 
       {/* Share & Download Actions */}
