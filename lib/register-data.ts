@@ -30,6 +30,7 @@ export interface RegistrationFormData {
     { id: "PMP", label: "Project Management Professional (PMP)" },
     { id: "AI", label: "Integrated Workforce AI Management" },
     { id: "DTA", label: "Data Analysis" },
+    { id: "GLM", label: "Global Missions (A professional Certificate Training)" },
   ];
   
   export const VOLUNTEER_UNITS = [
