@@ -65,7 +65,8 @@ export const programTracks: ProgramTrack[] = [
       "Project Management (PMP)",
       "Data Analysis",
       "Human Resource Management (HRM)",
-      "Integrated Workforce AI Management"
+      "Integrated Workforce AI Management",
+      "Global Missions (A professional Certificate Training)"
     ]
   },
   {
