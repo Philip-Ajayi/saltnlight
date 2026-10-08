@@ -11,6 +11,7 @@ const navLinks = [
   { label: "Schedule", href: "/schedule" },
   { label: "Voices", href: "/voices" },
   { label: "Contact", href: "/contact" },
+  { label: "Trainings", href: "/trainings" },
 ];
 
 export function Navbar() {
