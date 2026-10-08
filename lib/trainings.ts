@@ -56,6 +56,7 @@ export const trainingPrograms: TrainingProgram[] = [
     title: "Data Analysis",
     institution: "TRANSATLANTIC SCHOOL OF MANAGEMENT",
     logo: "https://mytsmedu.com/wp-content/uploads/2022/04/TSM-Edu-Logo-1-420x105.png",
+    badge: "Discounted Rate",
     price: "₦25,000",
     certificatesCount: "1 Program · 6 Globally Recognised Certificates",
     summary:
@@ -87,6 +88,7 @@ export const trainingPrograms: TrainingProgram[] = [
     title: "Project Management",
     institution: "TRANSATLANTIC SCHOOL OF MANAGEMENT",
     logo: "https://mytsmedu.com/wp-content/uploads/2022/04/TSM-Edu-Logo-1-420x105.png",
+    badge: "Discounted Rate",
     price: "₦25,000",
     certificatesCount: "1 Program · 6 Globally Recognised Certificates",
     summary:
@@ -117,6 +119,7 @@ export const trainingPrograms: TrainingProgram[] = [
     title: "General Certified Program",
     institution: "TRANSATLANTIC SCHOOL OF MANAGEMENT",
     logo: "https://mytsmedu.com/wp-content/uploads/2022/04/TSM-Edu-Logo-1-420x105.png",
+    badge: "Discounted Rate",
     price: "₦25,000",
     summary:
       "A comprehensive certification track combining foundational tools across top enterprise disciplines.",
