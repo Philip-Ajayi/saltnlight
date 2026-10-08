@@ -6,7 +6,7 @@ export interface RegistrationFormData {
     whatsappNumber: string;
     referralSources: string[];
     isMember: boolean;
-    certificatedTraining?: "HSE" | "PMP" | "NONE";
+    certificatedTraining?: "HSE" | "PMP" | "AI" | "DTA" | "GLM" | "NONE";
     isVolunteer: boolean;
     volunteerUnits: string[];
     needsAccommodation: boolean;
