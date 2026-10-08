@@ -10,7 +10,7 @@ import { trainingPrograms } from "@/lib/trainings";
 export default function TrainingsPage() {
   return (
     <main className="min-h-screen bg-[#050308] pt-28 pb-24 overflow-x-hidden">
-      {/* HERO / HEADER SECTION */}
+      {/* HERO / HEAD SECTION */}
       <section className="relative overflow-hidden py-16">
         <div className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-[radial-gradient(circle_at_50%_40%,rgba(70,5,131,0.35),transparent_70%)] blur-3xl" />
 
