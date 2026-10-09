@@ -48,4 +48,4 @@ export interface RegistrationFormData {
   
   // Target WhatsApp workforce invitation link
   export const VOLUNTEER_WHATSAPP_GROUP_URL =
-    "https://chat.whatsapp.com/JseeyOoMkaUAFwhxIgCJU5?mode=ac_t";
+    "https://chat.whatsapp.com/ER45aKxd0sjC2SEGrCalZA?s=cl&p=a&mlu=4&ilr=4";
