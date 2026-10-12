@@ -8,7 +8,8 @@ import { Footer } from "@/components/footer";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { CursorLight } from "@/components/ui/cursor-light";
 import { NoiseOverlay } from "@/components/ui/noise-overlay";
-import { DentalPopup } from "@/components/ui/dental-popup"; // 1. Import the component
+import { DentalPopup } from "@/components/ui/dental-popup";
+import { VerifyStatusTrigger } from "@/components/ui/verify-status-trigger";
 
 const syne = Syne({
   subsets: ["latin"],
@@ -81,7 +82,8 @@ export default function RootLayout({
         <NoiseOverlay />
         <Navbar />
         {children}
-        <DentalPopup /> {/* 2. Add it here so it appears globally */}
+        <VerifyStatusTrigger />
+        <DentalPopup />
         <Footer />
       </body>
     </html>
