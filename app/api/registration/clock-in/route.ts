@@ -11,7 +11,7 @@ interface UserDocument {
   _id: ObjectId;
   firstName: string;
   lastName: string;
-  uniqueId?: string; // Optional now in case legacy/imported users lack one
+  uniqueId: string;
   accommodation?: string;
   attended?: boolean;
   attendedAt?: Date;
@@ -41,26 +41,11 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    // 1. Generate unique ID (251 + userCount) if participant does not have one yet
-    let assignedUniqueId = user.uniqueId;
-    if (!assignedUniqueId) {
-      const userCount = await usersCollection.countDocuments();
-      assignedUniqueId = `SLT2026${251 + userCount}`;
-    }
-
     const isAttended =
       Boolean(user.attended) ||
       (Array.isArray(user.attendance) && user.attendance.length > 0);
 
     if (isAttended) {
-      // If ID was missing, save the generated one even if they already clocked in
-      if (!user.uniqueId) {
-        await usersCollection.updateOne(
-          { _id: user._id },
-          { $set: { uniqueId: assignedUniqueId, updatedAt: new Date() } }
-        );
-      }
-
       return NextResponse.json(
         {
           error: "Participant has already clocked in before.",
@@ -68,7 +53,7 @@ export async function POST(request: Request) {
           attendedAt: user.attendedAt || user.attendance?.[0]?.date,
           user: {
             name: `${user.firstName} ${user.lastName}`,
-            uniqueId: assignedUniqueId,
+            uniqueId: user.uniqueId,
             accommodation: user.accommodation || "no",
           },
         },
@@ -78,12 +63,11 @@ export async function POST(request: Request) {
 
     const now = new Date();
 
-    // 2. Persist attendance and the uniqueId into the database
+    // Type-safe update: MongoDB driver recognizes `attendance` as an array field
     await usersCollection.updateOne(
       { _id: user._id },
       {
         $set: {
-          uniqueId: assignedUniqueId,
           attended: true,
           attendedAt: now,
           updatedAt: now,
@@ -94,9 +78,9 @@ export async function POST(request: Request) {
       }
     );
 
-    // 3. Resolve corresponding pending check-in requests
+    // Resolve any corresponding pending check-in requests
     await notificationsCollection.updateMany(
-      { $or: [{ userId: user._id.toString() }, { uniqueId: assignedUniqueId }] },
+      { $or: [{ userId: user._id.toString() }, { uniqueId: user.uniqueId }] },
       { $set: { status: "resolved", resolvedAt: now } }
     );
 
@@ -105,7 +89,7 @@ export async function POST(request: Request) {
       user: {
         _id: user._id.toString(),
         name: `${user.firstName} ${user.lastName}`,
-        uniqueId: assignedUniqueId,
+        uniqueId: user.uniqueId,
         accommodation: user.accommodation || "no",
         attendedAt: now,
       },
