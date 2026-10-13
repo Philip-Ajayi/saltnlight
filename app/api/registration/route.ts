@@ -99,8 +99,9 @@ export async function POST(request: Request) {
       );
     }
 
-    const totalUsers = await usersCollection.countDocuments();
-    const uniqueId = `SLT2026${201 + totalUsers}`;
+    // Generate Unique ID using 251 + userCount
+    const userCount = await usersCollection.countDocuments();
+    const uniqueId = `SLT2026${251 + userCount}`;
     const now = new Date();
 
     const newUser = {
