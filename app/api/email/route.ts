@@ -1,14 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDatabase } from "@/lib/mongodb";
 
-// Helper to deduplicate, lowercase, and clean email addresses
-function extractCleanEmails(users: Array<{ email?: string | null }>): string[] {
+// 1. Explicit document type interface
+interface UserDoc {
+  email?: string | null;
+  certificatedTraining?: string | null;
+  attended?: boolean;
+  attendance?: Array<{ date?: Date | string; session?: string }>;
+  [key: string]: unknown; // Allows any other fields
+}
+
+// 2. Helper to deduplicate, lowercase, and clean email addresses
+function extractCleanEmails(users: UserDoc[]): string[] {
   const emailSet = new Set<string>();
 
   for (const user of users) {
-    if (!user.email) continue;
+    if (!user.email || typeof user.email !== "string") continue;
     const clean = user.email.trim().toLowerCase();
-    // Verify it's a valid email string
+    // Validate it is an actual email
     if (clean && clean !== "n/a" && clean.includes("@")) {
       emailSet.add(clean);
     }
@@ -28,8 +37,8 @@ export async function GET(request: NextRequest) {
         {
           error: "Missing required query parameter.",
           usage: [
-            "GET /api/your-route?attendance",
-            "GET /api/your-route?certificate",
+            "GET /api/email?attendance",
+            "GET /api/email?certificate",
             "Optional: Append &format=json for structured JSON output",
           ],
         },
@@ -38,7 +47,8 @@ export async function GET(request: NextRequest) {
     }
 
     const db = await getDatabase();
-    const usersCollection = db.collection("users");
+    // Pass UserDoc generic to ensure type-safety across queries
+    const usersCollection = db.collection<UserDoc>("users");
 
     // ------------------------------------------------------------------------
     // CASE 1: ?attendance
@@ -88,7 +98,6 @@ export async function GET(request: NextRequest) {
             certificatedTraining: {
               $exists: true,
               $nin: ["", null, "None", "NONE", "none", "N/A", "n/a"],
-              // Exclude Global Missions / GLM using Mongo regex
               $not: /global\s*mission|glm/i,
             },
             email: { $exists: true, $nin: ["", null, "N/A", "n/a"] },
